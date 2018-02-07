@@ -2,9 +2,7 @@
 import { expect } from 'chai'
 import React from 'react' // eslint-disable-line no-unused-vars
 import Adapter from 'enzyme-adapter-react-15'
-import enzyme, { mount } from 'enzyme'
-
-const debug = require('debug')('gh:test:unit:component:Icon')
+import enzyme, { shallow, render, mount } from 'enzyme'
 enzyme.configure({ adapter: new Adapter() })
 
 function init( options = {} ){
@@ -24,37 +22,57 @@ init()
 import { Icon } from '../src/IconTest'
 
 
-describe('unit::components::Icon', function(){
+describe('unit::component::Icon', function(){
 
-  it('should have exact html', function(){
-    const wrapper = mount(<Icon className='whatever-name' />)
-    expect( wrapper.html() ).to.equal('<span class="whatever-name"></span>')
+  context('mount', function(){
+
+    it('should find a single .whatever-name class', function(){
+      const wrapper = mount(<Icon className='whatever-name' />)
+      expect( wrapper.find('.whatever-name').length ).to.eql(1)
+    })
+
+    it('should have exact html', function(){
+      const wrapper = mount(<Icon className='whatever-name' />)
+      expect( wrapper.html() ).to.equal('<span class="whatever-name"></span>')
+    })
+
+    it('should filter a single .whatever-name class', function(){
+      const wrapper = mount(<Icon className='whatever-name' />)
+      expect( wrapper.filter('.whatever-name').length ).to.eql(1)
+    })
+
+    it('should find a single span element', function(){
+      const wrapper = mount(<Icon />)
+      expect( wrapper.find('span').length ).to.equal(1)
+    })
+
+    it('should find a single span.whatever-name ', function(){
+      const wrapper = mount(<Icon className='whatever-name' />)
+      expect( wrapper.find('span.whatever-name').length ).to.eql(1)
+    })
+
+    it('should debug find .whatever-name class', function(){
+      const wrapper = mount(<Icon className='whatever-name' />)
+      console.log('html', wrapper.html())
+      wrapper.find('.whatever-name').map((el,i) => console.log('find.map[%s]: %s', i, el.html()))
+    })
+
   })
 
-  it('should find a single .whatever-name class', function(){
-    const wrapper = mount(<Icon className='whatever-name' />)
-    expect( wrapper.find('.whatever-name').length ).to.eql(1)
+  context('shallow', function(){
+    it('should find a single .whatever-name class', function(){
+      const wrapper = shallow(<Icon className='whatever-name' />)
+      expect( wrapper.find('.whatever-name').length ).to.eql(1)
+    })
   })
 
-  it('should filter a single .whatever-name class', function(){
-    const wrapper = mount(<Icon className='whatever-name' />)
-    expect( wrapper.filter('.whatever-name').length ).to.eql(1)
-  })
-
-  it('should find a single span element', function(){
-    const wrapper = mount(<Icon />)
-    expect( wrapper.find('span').length ).to.equal(1)
-  })
-
-  it('should find a single span.whatever-name ', function(){
-    const wrapper = mount(<Icon className='whatever-name' />)
-    expect( wrapper.find('span.whatever-name').length ).to.eql(1)
-  })
-
-  it('should debug find a single .whatever-name class', function(){
-    const wrapper = mount(<Icon className='whatever-name' />)
-    debug(wrapper.html())
-    wrapper.find('.whatever-name').map((el,i) => debug(i, el.html()))
+  xcontext('render', function(){
+    it('should find a single .whatever-name class', function(){
+      const $ = render(<Icon className='whatever-name' />)
+      console.log('$', $)
+      console.log('html', $.html())
+      expect( $.find('.whatever-name').length ).to.eql(1)
+    })
   })
 
 })
