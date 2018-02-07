@@ -19,7 +19,7 @@ function init( options = {} ){
 init()
 
 
-import { Icon } from '../src/IconTest'
+import { Icon, Icon2 } from '../src/IconTest'
 
 
 describe('unit::component::Icon', function(){
@@ -30,6 +30,7 @@ describe('unit::component::Icon', function(){
       const wrapper = mount(<Icon className='whatever-name' />)
       expect( wrapper.find('.whatever-name').length ).to.eql(1)
     })
+
 
     it('should have exact html', function(){
       const wrapper = mount(<Icon className='whatever-name' />)
@@ -76,3 +77,22 @@ describe('unit::component::Icon', function(){
   })
 
 })
+
+describe('unit::component::Icon2', function(){
+
+  context('mount', function(){
+    it('should find two .whatever-name class in Icon2', function(){
+      const wrapper = mount(<Icon2 className='whatever-name' />)
+      expect( wrapper.find('.whatever-name').length ).to.eql(2)
+    })
+  })
+
+  context('shallow', function(){
+    it('should find a single .whatever-name class', function(){
+      const wrapper = shallow(<Icon2 className='whatever-name' />)
+      expect( wrapper.find('.whatever-name').length ).to.eql(2)
+    })
+  })
+
+})
+
