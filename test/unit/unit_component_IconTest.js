@@ -19,7 +19,7 @@ function init( options = {} ){
 init()
 
 
-import { Icon, Icon2 } from '../src/IconTest'
+import { Icon, Icon2 } from '../../src/IconTest'
 
 
 describe('unit::component::Icon', function(){
